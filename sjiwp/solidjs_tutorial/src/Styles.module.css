@@ -1,0 +1,17 @@
+.test {
+    color:azure;
+    background-color: blueviolet;
+    font-weight: bold;
+}
+
+.active {
+    font-size: 2em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.passive {
+    font-size: 0.5em;
+    font-weight: normal;
+    text-transform: lowercase;
+}

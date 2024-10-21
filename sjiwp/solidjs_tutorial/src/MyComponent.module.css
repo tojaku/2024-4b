@@ -1,0 +1,10 @@
+.kutija {
+    background-color: brown;
+    color: aquamarine;
+    font-size: xx-large;
+    font-weight: bold;
+    padding: 20px;
+    display: inline-block;
+    margin-inline-start: 20px;
+    text-transform: uppercase;
+}
