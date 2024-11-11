@@ -13,12 +13,13 @@ import Spreads from './Spreads';
 import Pvp from './Pvp';
 import Children from './Children';
 import Forms from './Forms';
+import Stores from './Stores';
 
 export default function App() {
   return (
     <>
       <div class={styles.App}>Dobar dan, svijete!</div>
-      <Forms />
+      <Stores />
     </>
   );
 }
