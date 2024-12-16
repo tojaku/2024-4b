@@ -9,7 +9,6 @@ export function useAuth() {
     return useContext(AuthContext);
 }
 
-
 // component
 export function AuthProvider(props) {
     const [session, setSession] = createSignal(null);

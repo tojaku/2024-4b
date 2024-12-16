@@ -1,6 +1,6 @@
-import { Router, Route } from "@solidjs/router";
-import { AuthProvider } from "./components/AuthProvider";
-import { A } from "@solidjs/router";
+import { Router, Route, A } from "@solidjs/router";
+import { AuthProvider, useAuth } from "./components/AuthProvider";
+import { Show } from "solid-js";
 
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
@@ -20,6 +20,7 @@ export default function App() {
 
 function Layout(props) {
   const appName = import.meta.env.VITE_APP_NAME;
+  const session = useAuth();
 
   return (
     <div class="p-4 flex flex-col gap-4">
@@ -30,8 +31,12 @@ function Layout(props) {
         </div>
         <div class="flex gap-2">
           <A href="/" class="bg-orange-400 p-2 rounded hover:bg-red-300">Naslovnica</A>
-          <A href="/signin" class="bg-orange-400 p-2 rounded hover:bg-red-300">Prijava</A>
-          <A href="/signout" class="bg-orange-400 p-2 rounded hover:bg-red-300">Odjava</A>
+          <Show when={!session()}>
+            <A href="/signin" class="bg-orange-400 p-2 rounded hover:bg-red-300">Prijava</A>
+          </Show>
+          <Show when={session()}>
+            <A href="/signout" class="bg-orange-400 p-2 rounded hover:bg-red-300">Odjava</A>
+          </Show>
         </div>
       </div>
 

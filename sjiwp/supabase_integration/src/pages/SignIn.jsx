@@ -1,7 +1,10 @@
 import { createSignal, Show } from "solid-js";
 import { supabase } from "../services/supabase";
+import { useNavigate } from "@solidjs/router";
 
 export default function SignIn(props) {
+    const navigate = useNavigate();
+
     const [result, setResult] = createSignal(null);
 
     async function formSubmit(event) {
@@ -20,6 +23,7 @@ export default function SignIn(props) {
             setResult("Dogodila se greška prilikom prijave!");
         } else {
             setResult("Prijava je uspjela.");
+            navigate("/", { replace: true });
         }
     }
 
