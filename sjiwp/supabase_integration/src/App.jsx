@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignOut from "./pages/SignOut";
 
+import TestFunction from "./pages/TestFunction";
+
 export default function App() {
   return (
     <AuthProvider>
@@ -13,6 +15,7 @@ export default function App() {
         <Route path="/" component={Home} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signout" component={SignOut} />
+        <Route path="/test" component={TestFunction} />
       </Router>
     </AuthProvider>
   );
@@ -25,11 +28,11 @@ function Layout(props) {
   return (
     <div class="p-4 flex flex-col gap-4">
 
-      <div>
-        <div class="text-4xl text-neutral-500 uppercase">
+      <div class="flex flex-wrap align-top items-start gap-2">
+        <div class="flex-1 text-3xl text-neutral-500 uppercase">
           {appName}
         </div>
-        <div class="flex gap-2">
+        <div class="flex-none flex flex-wrap gap-2">
           <A href="/" class="bg-orange-400 p-2 rounded hover:bg-red-300">Naslovnica</A>
           <Show when={!session()}>
             <A href="/signin" class="bg-orange-400 p-2 rounded hover:bg-red-300">Prijava</A>
@@ -45,7 +48,7 @@ function Layout(props) {
       </div>
 
       <div class="text-center text-xs text-neutral-500">
-        Sva prava pridržana {new Date().getFullYear()}. Pero i sinovi
+        Sva prava pridržana {new Date().getFullYear()}. Obrtnička škola Koprivnica
       </div>
     </div>
   );

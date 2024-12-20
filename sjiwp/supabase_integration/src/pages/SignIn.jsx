@@ -19,8 +19,10 @@ export default function SignIn(props) {
         });
 
         console.log(result);
-        if (result.error) {
-            setResult("Dogodila se greška prilikom prijave!");
+        if (result.error?.code === "invalid_credentials") {
+            setResult("Pogrešna e-mail adresa i/ili zaporka.");
+        } else if (result.error) {
+            setResult("Dogodila se greška prilikom prijave.");
         } else {
             setResult("Prijava je uspjela.");
             navigate("/", { replace: true });

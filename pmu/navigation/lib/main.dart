@@ -30,7 +30,8 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            Navigator.pushNamed(context, "/second");
+            Navigator.pushNamed(context, "/second",
+                arguments: "Hello from HomePage!");
           },
           child: const Text("Go to Second Page"),
         ),
@@ -44,6 +45,9 @@ class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String sentData =
+        ModalRoute.of(context)!.settings.arguments as String;
+
     return Scaffold(
         appBar: AppBar(
           title: const Text("Second Page"),
@@ -53,7 +57,7 @@ class SecondPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            child: const Text("Back"),
+            child: Text(sentData),
           ),
         ));
   }
