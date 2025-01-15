@@ -5,8 +5,8 @@ import { Show } from "solid-js";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignOut from "./pages/SignOut";
-
-import TestFunction from "./pages/TestFunction";
+import Projects from "./pages/Projects";
+import Tasks from "./pages/Tasks";
 
 export default function App() {
   return (
@@ -15,7 +15,8 @@ export default function App() {
         <Route path="/" component={Home} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signout" component={SignOut} />
-        <Route path="/test" component={TestFunction} />
+        <Route path="/projects" component={Projects} />
+        <Route path="/tasks/:id" component={Tasks} />
       </Router>
     </AuthProvider>
   );
@@ -34,6 +35,9 @@ function Layout(props) {
         </div>
         <div class="flex-none flex flex-wrap gap-2">
           <A href="/" class="bg-orange-400 p-2 rounded hover:bg-red-300">Naslovnica</A>
+          <Show when={session()}>
+            <A href="/projects" class="bg-orange-400 p-2 rounded hover:bg-red-300">Novi projekt</A>
+          </Show>
           <Show when={!session()}>
             <A href="/signin" class="bg-orange-400 p-2 rounded hover:bg-red-300">Prijava</A>
           </Show>
