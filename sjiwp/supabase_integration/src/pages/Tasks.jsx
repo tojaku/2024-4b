@@ -10,6 +10,11 @@ export default function Tasks(props) {
     const [project, setProject] = createSignal(null);
     const [isOwner, setOwner] = createSignal(false);
     const [tasks, setTasks] = createSignal([]);
+    const [descriptionVisible, setDescriptionVisible] = createSignal(false);
+
+    function toggleDescription() {
+        setDescriptionVisible(old => !old);
+    }
 
     onMount(async () => {
         const { data, error } = await supabase
@@ -19,7 +24,7 @@ export default function Tasks(props) {
         if (error) return;
         setProject(data[0]);
         if (session().user.id === project().author_id) setOwner(true);
-        loadTasks();
+        await loadTasks();
     });
 
     async function formSubmit(event) {
@@ -36,7 +41,7 @@ export default function Tasks(props) {
         if (error) {
             alert("Spremanje nije uspjelo.");
         } else {
-            loadTasks();
+            await loadTasks();
             event.target.reset();
         }
     }
@@ -58,7 +63,7 @@ export default function Tasks(props) {
         if (error) {
             alert("Operacija nije uspjela.");
         } else {
-            loadTasks();
+            await loadTasks();
         }
     }
 
@@ -70,7 +75,19 @@ export default function Tasks(props) {
         if (error) {
             alert("Operacija nije uspjela.");
         } else {
-            loadTasks();
+            await loadTasks();
+        }
+    }
+
+    async function deleteTask(taskId) {
+        const { error } = await supabase
+            .from("tasks")
+            .delete()
+            .eq("id", taskId);
+        if (error) {
+            alert("Operacija nije uspjela.");
+        } else {
+            await loadTasks();
         }
     }
 
@@ -93,20 +110,37 @@ export default function Tasks(props) {
                     </form>
                 </Show>
 
+                <div>
+                    <button class="bg-orange-500 text-white p-2 rounded text-sm mb-2" onClick={() => toggleDescription()}>Prikaži/sakrij opis</button>
+                </div>
+                <Show when={descriptionVisible()}>
+                    <div class="mb-4">{project().description}</div>
+                </Show>
+
                 <For each={tasks()} fallback={<div>Nema zadataka.</div>}>
                     {(item) => <div class="flex flex-col gap-2 items-end bg-blue-400 text-white p-2 rounded mb-5">
-                        
+
                         <div class="place-self-start text-xl">{item.name}</div>
-                        
-                        <Show when={item.owner_id}>
+
+                        <Show when={item.owner_id && item.owner_id !== session().user.id}>
                             <div>Zadatak preuzet</div>
                         </Show>
+                        <Show when={item.owner_id && item.owner_id === session().user.id}>
+                            <div>Vi ste preuzeli zadatak</div>
+                        </Show>
+
                         <Show when={!item.owner_id}>
                             <button onClick={() => takeOwnership(item.id)} class="bg-white text-blue-400 p-2 rounded text-sm">
                                 Preuzmi
                             </button>
                         </Show>
-                        
+
+                        <Show when={isOwner() && item.done !== true}>
+                            <button onClick={() => deleteTask(item.id)} class="bg-white text-red-400 p-2 rounded text-sm">
+                                Briši
+                            </button>
+                        </Show>
+
                         <Show when={item.done === false && item.owner_id === session().user.id}>
                             <button onClick={() => markDone(item.id)} class="bg-white text-blue-400 p-2 rounded text-sm">
                                 Završi
