@@ -7,6 +7,7 @@ import Signin from "./pages/Signin";
 import Signout from "./pages/Signout";
 import Error from "./pages/Error";
 import Signup from "./pages/Signup";
+import Events from "./pages/Events";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/signin" component={Signin} />
         <Route path="/signout" component={Signout} />
         <Route path="/signup" component={Signup} />
+        <Route path="/events" component={Events} />
         <Route path="/error" component={Error} />
         <Route path="*" component={() => <Navigate href="/error" />} />
       </Router>
@@ -37,6 +39,9 @@ function Layout(props) {
         </div>
         <nav class="flex-1 flex gap-2 justify-end">
           <Show when={user()}>
+            <Show when={user().role === "admin"}>
+              <A class="p-2 bg-blue-400 text-gray-50 font-bold rounded hover:brightness-90" href="/events">Događaji</A>
+            </Show>
             <A class="p-2 bg-pink-500 text-gray-50 font-bold rounded hover:brightness-90" href="/signout">Odjava</A>
           </Show>
           <Show when={!user()}>
@@ -49,7 +54,7 @@ function Layout(props) {
       <main class="flex-1">{props.children}</main>
 
       <footer class="flex-none py-6 px-2 bg-cyan-700 text-white text-sm text-center">Copyright {appName}</footer>
-      
+
     </div>
   );
 }
