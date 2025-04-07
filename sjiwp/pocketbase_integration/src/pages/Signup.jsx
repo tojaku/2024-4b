@@ -1,5 +1,6 @@
 import { createSignal, Show } from "solid-js";
 import { pb } from "../services/pocketbase";
+import AlertMessage from "../components/AlertMessage";
 
 export default function Signup() {
     const [error, setError] = createSignal(false);
@@ -63,15 +64,11 @@ export default function Signup() {
             </Show>
 
             <Show when={success()}>
-                <div class="m-2 p-4 rounded bg-emerald-500 w-md">
-                    Uspješno ste se registrirali na aplikaciju.
-                </div>
+                <AlertMessage message="Uspješno ste se registrirali na aplikaciju." />
             </Show>
 
             <Show when={error()}>
-                <div class="m-2 p-4 rounded bg-red-300 w-md">
-                    Dogodila se greška prilikom stvaranja korisničkog računa, provjerite svoje podatke.
-                </div>
+                <AlertMessage type="error" message="Dogodila se greška prilikom stvaranja korisničkog računa, provjerite svoje podatke." />
             </Show>
         </>);
 }

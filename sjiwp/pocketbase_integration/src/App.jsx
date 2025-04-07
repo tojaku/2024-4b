@@ -8,6 +8,7 @@ import Signout from "./pages/Signout";
 import Error from "./pages/Error";
 import Signup from "./pages/Signup";
 import Events from "./pages/Events";
+import Button from "./components/Button";
 
 export default function App() {
   return (
@@ -40,13 +41,13 @@ function Layout(props) {
         <nav class="flex-1 flex gap-2 justify-end">
           <Show when={user()}>
             <Show when={user().role === "admin"}>
-              <A class="p-2 bg-blue-400 text-gray-50 font-bold rounded hover:brightness-90" href="/events">Događaji</A>
+              <Button href="/events" label="Događaji" />
             </Show>
-            <A class="p-2 bg-pink-500 text-gray-50 font-bold rounded hover:brightness-90" href="/signout">Odjava</A>
+            <Button href="/signout" label="Odjava" color="bg-pink-500" />
           </Show>
           <Show when={!user()}>
-            <A class="p-2 bg-amber-500 text-gray-50 font-bold rounded hover:brightness-90" href="/signin">Prijava</A>
-            <A class="p-2 bg-blue-400 text-gray-50 font-bold rounded hover:brightness-90" href="/signup">Registracija</A>
+            <Button href="/signin" label="Prijava" color="bg-amber-500" />
+            <Button href="/signup" label="Registracija" />
           </Show>
         </nav>
       </header>

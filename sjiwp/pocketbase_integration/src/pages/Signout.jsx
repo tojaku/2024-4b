@@ -1,5 +1,6 @@
 import { onMount } from "solid-js";
 import { pb } from "../services/pocketbase";
+import AlertMessage from "../components/AlertMessage";
 
 export default function Signout() {
 
@@ -8,8 +9,6 @@ export default function Signout() {
     });
 
     return (
-        <div class="m-2 p-4 rounded bg-emerald-500 w-md">
-            Uspješno ste se odjavili.
-        </div>
+        <AlertMessage message="Uspješno ste se odjavili." />
     );
 }
