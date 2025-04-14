@@ -9,6 +9,7 @@ import Error from "./pages/Error";
 import Signup from "./pages/Signup";
 import Events from "./pages/Events";
 import Button from "./components/Button";
+import Signups from "./pages/Signups";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/signout" component={Signout} />
         <Route path="/signup" component={Signup} />
         <Route path="/events" component={Events} />
+        <Route path="/signups/:id" component={Signups} />
         <Route path="/error" component={Error} />
         <Route path="*" component={() => <Navigate href="/error" />} />
       </Router>

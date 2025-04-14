@@ -3,6 +3,7 @@ import { pb } from "../services/pocketbase";
 import { useAuth } from "../components/AuthProvider";
 import AlertMessage from "../components/AlertMessage";
 import Button from "../components/Button";
+import { A } from "@solidjs/router";
 
 export default function Events(props) {
     const user = useAuth();
@@ -137,7 +138,7 @@ export default function Events(props) {
                         {(item, index) => (
                             <div class="flex flex-row items-center gap-2 w-full p-4 rounded bg-amber-100 mb-2">
                                 <div class="flex-1">
-                                    <div class="text-2xl">{item.name}</div>
+                                    <div class="text-2xl hover:invert-50"><A href={`/signups/${item.id}`}>{item.name}</A></div>
                                     <div class="line-clamp-3 text-xs">{item.details}</div>
                                 </div>
                                 <div class="flex flex-col">
@@ -150,17 +151,13 @@ export default function Events(props) {
                                 </div>
                                 <div class="flex flex-row gap-1">
                                     <span onClick={() => updateItem(item)}><Button label="Uredi" /></span>
-                                    <span onClick={() => deleteItem(item)}><Button label="Obriši" color="bg-red-400" /></span>
+                                    <span onClick={async () => await deleteItem(item)}><Button label="Obriši" color="bg-red-400" /></span>
                                 </div>
                             </div>
                         )}
                     </For>
                 </div>
-
-
             </div>
-
-
         </>
     );
 }
